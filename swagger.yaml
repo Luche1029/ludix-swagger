@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: Ludix iFrame Integration API
+  description: API documentation for Ludix integration
+  version: 1.0.0
+servers:
+  - url: https://ludix.ai/ludix/spAPI
+paths:
+  /updateSku:
+    post:
+      summary: Update SKU details
+      requestBody:
+        description: SKU details to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sku:
+                  type: string
+                  description: The code of the item
+                qty:
+                  type: integer
+                  description: The quantity in stock
+                price:
+                  type: integer
+                  description: The price in cents
+              required:
+                - sku
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: SKU updated successfully
+  /getOrderInfo:
+    post:
+      summary: Retrieve order information
+      requestBody:
+        description: Order number to retrieve details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderNumber:
+                  type: string
+                  description: The order number
+              required:
+                - orderNumber
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderNumber:
+                    type: string
+                  status:
+                    type: string
+                  note:
+                    type: string
+  /confirmOrder:
+    post:
+      summary: Confirm an order after payment
+      requestBody:
+        description: Order number to confirm
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderNumber:
+                  type: string
+                  description: The order number to confirm
+              required:
+                - orderNumber
+      responses:
+        '200':
+          description: Order confirmation message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Order successfully confirmed.
+  /cancelOrder:
+    post:
+      summary: Cancel an order
+      requestBody:
+        description: Order number to cancel
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderNumber:
+                  type: string
+                  description: The order number to cancel
+              required:
+                - orderNumber
+      responses:
+        '200':
+          description: Order cancellation message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Order successfully canceled.
+  /getOrderStatus:
+    post:
+      summary: Retrieve the status of an order
+      requestBody:
+        description: Order number to check status
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                orderNumber:
+                  type: string
+                  description: The order number
+              required:
+                - orderNumber
+      responses:
+        '200':
+          description: Order status details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderNumber:
+                    type: string
+                  status:
+                    type: string
+                    example: Shipped
+                  note:
+                    type: string
+                    example: Delivered on 2024-10-05
